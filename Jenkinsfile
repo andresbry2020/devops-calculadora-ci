@@ -1,6 +1,3 @@
-// Laboratorio DevOps - UNINPAHU - Semanas 5 y 6
-// Pipeline: Checkout -> Build -> Test -> Package -> Build Image -> Deploy -> Health Check
-
 pipeline {
     agent any
     tools {
@@ -29,7 +26,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Ejecutando pruebas...'
+                echo 'Ejecutando pruebas unitarias con JUnit...'
                 sh 'mvn -B test'
             }
             post {
@@ -40,7 +37,7 @@ pipeline {
         }
         stage('Package') {
             steps {
-                echo 'Empaquetando JAR...'
+                echo 'Empaquetando el archivo JAR...'
                 sh 'mvn -B package -DskipTests'
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
